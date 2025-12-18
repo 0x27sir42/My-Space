@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZILA TOKEN - PRESALE</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        zilaBlue: '#0EA5E9',
+                        zilaMint: '#14B8A6',
+                        zilaGold: '#FBBF24',
+                        zilaDark: '#1E293B',
+                    },
+                    fontFamily: {
+                        future: ['"Orbitron"', 'sans-serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 10s linear infinite',
+                        'pulse-gentle': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow-glow {
+                text-shadow: 0 0 15px rgba(14, 165, 233, 0.8);
+            }
+            .3d-card {
+                transform-style: preserve-3d;
+                transition: transform 0.5s ease;
+            }
+            .3d-card:hover {
+                transform: rotateY(15deg) rotateX(10deg) scale(1.02);
+            }
+            .3d-bg {
+                background: radial-gradient(circle at 50% 50%, #0EA5E910, #1E293B 70%);
+                transform-style: preserve-3d;
+                perspective: 1000px;
+            }
+            .token-glow {
+                box-shadow: 0 0 30px rgba(20, 184, 166, 0.7), 0 0 60px rgba(251, 191, 36, 0.5);
+            }
+            .metric-bar {
+                transform: translateZ(5px);
+                transition: width 1s ease;
+            }
+        }
+    </style>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-zilaDark text-white min-h-screen overflow-x-hidden 3d-bg">
+    <!-- Floating 3D Geometric Shapes (Background Decor) -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute top-20 left-10 w-32 h-32 rounded-full bg-zilaBlue/20 blur-xl animate-float" style="animation-delay: 0s;"></div>
+        <div class="absolute bottom-40 right-20 w-48 h-48 rounded-lg bg-zilaMint/20 blur-xl animate-float" style="animation-delay: 1.5s; transform: rotate(45deg);"></div>
+        <div class="absolute top-1/2 left-1/3 w-24 h-24 rounded-full bg-zilaGold/20 blur-xl animate-float" style="animation-delay: 3s;"></div>
+        <div class="absolute top-40 right-1/4 w-36 h-36 rounded-lg bg-zilaBlue/15 blur-xl animate-float" style="animation-delay: 4.5s; transform: rotate(120deg);"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-10 py-6 px-4 md:px-8 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-zilaMint token-glow flex items-center justify-center">
+                <span class="font-future text-xl font-bold">Z</span>
+            </div>
+            <h1 class="font-future text-2xl md:text-3xl font-bold text-shadow-glow">ZILA TOKEN</h1>
+        </div>
+        <nav class="hidden md:flex gap-6">
+            <a href="#details" class="font-medium hover:text-zilaMint transition-colors">Details</a>
+            <a href="#purchase" class="font-medium hover:text-zilaMint transition-colors">Buy</a>
+            <a href="#token" class="font-medium hover:text-zilaMint transition-colors">Token</a>
+            <a href="#contact" class="font-medium hover:text-zilaMint transition-colors">Support</a>
+        </nav>
+        <button class="md:hidden text-2xl">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 container mx-auto px-4 md:px-8 py-8">
+        <!-- Hero Section (Video + Token) -->
+        <section class="flex flex-col md:flex-row items-center gap-8 md:gap-16 py-12">
+            <!-- 3D Token Image -->
+            <div class="w-full md:w-1/3 flex justify-center">
+                <div class="w-64 h-64 rounded-full bg-gradient-to-br from-zilaMint to-zilaGold token-glow animate-spin-slow 3d-card flex items-center justify-center">
+                    <div class="w-56 h-56 rounded-full bg-zilaDark flex items-center justify-center">
+                        <span class="font-future text-4xl md:text-5xl font-black text-shadow-glow">ZILA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Introduction Video Placeholder -->
+            <div class="w-full md:w-2/3 3d-card">
+                <div class="aspect-video bg-zilaDark/50 rounded-xl border-2 border-zilaBlue/30 overflow-hidden relative">
+                    <video controls poster="https://via.placeholder.com/1280x720?text=ZILA+INTRO+VIDEO" class="w-full h-full object-cover">
+                        <source src="zila-intro-video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <button class="w-16 h-16 rounded-full bg-zilaMint/80 token-glow flex items-center justify-center hover:bg-zilaMint transition-colors">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                <p class="mt-4 text-center text-zilaBlue/80 font-medium">Watch our 3D AI-powered introduction to ZILA Token</p>
+            </div>
+        </section>
+
+        <!-- Presale Details Section -->
+        <section id="details" class="py-12">
+            <h2 class="font-future text-3xl md:text-4xl font-bold text-center mb-10 text-shadow-glow">PRESALE DETAILS</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Detail Card 1 -->
+                <div class="3d-card bg-zilaDark/70 rounded-xl p-6 border border-zilaBlue/20 hover:border-zilaMint/50 transition-colors">
+                    <div class="text-zilaGold text-4xl mb-3"><i class="fas fa-minus-circle"></i></div>
+                    <h3 class="font-future text-xl font-bold mb-2">Minimum Purchase</h3>
+                    <p class="text-2xl font-bold text-zilaMint">$2 <span class="text-sm text-white">≈ 200 ZILA</span></p>
+                </div>
+
+                <!-- Detail Card 2 -->
+                <div class="3d-card bg-zilaDark/70 rounded-xl p-6 border border-zilaBlue/20 hover:border-zilaMint/50 transition-colors">
+                    <div class="text-zilaGold text-4xl mb-3"><i class="fas fa-plus-circle"></i></div>
+                    <h3 class="font-future text-xl font-bold mb-2">Maximum Purchase</h3>
+                    <p class="text-2xl font-bold text-zilaMint">$500 <span class="text-sm text-white">≈ 50,000 ZILA</span></p>
+                </div>
+
+                <!-- Detail Card 3 -->
+                <div class="3d-card bg-zilaDark/70 rounded-xl p-6 border border-zilaBlue/20 hover:border-zilaMint/50 transition-colors">
+                    <div class="text-zilaGold text-4xl mb-3"><i class="fas fa-exchange-alt"></i></div>
+                    <h3 class="font-future text-xl font-bold mb-2">Exchange Rate</h3>
+                    <p class="text-2xl font-bold text-zilaMint">1 USD = 100 ZILA</p>
+                </div>
+
+                <!-- Detail Card 4 -->
+                <div class="3d-card bg-zilaDark/70 rounded-xl p-6 border border-zilaBlue/20 hover:border-zilaMint/50 transition-colors">
+                    <div class="text-zilaGold text-4xl mb-3"><i class="fas fa-pie-chart"></i></div>
+                    <h3 class="font-future text-xl font-bold mb-2">Public Allocation</h3>
+                    <p class="text-2xl font-bold text-zilaMint">5% <span class="text-sm text-white">≈ 50M ZILA</span></p>
+                </div>
+            </div>
+
+            <!-- Real-Time Metrics -->
+            <div class="mt-12 3d-card bg-zilaDark/70 rounded-xl p-6 border border-zilaBlue/20">
+                <h3 class="font-future text-2xl font-bold mb-6 text-center">REAL-TIME PRESALE PROGRESS</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="text-center">
+                        <p class="text-zilaBlue font-medium">Total Raised</p>
+                        <p class="text-3xl font-bold text-zilaMint" id="totalRaised">$128,450</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-zilaBlue font-medium">Tokens Sold</p>
+                        <p class="text-3xl font-bold text-zilaMint" id="tokensSold">12,845,000 ZILA</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-zilaBlue font-medium">Participants</p>
+                        <p class="text-3xl font-bold text-zilaMint" id="participants">1,842</p>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="h-6 bg-zilaDark/50 rounded-full overflow-hidden border border-zilaBlue/30">
+                    <div class="metric-bar h-full bg-gradient-to-r from-zilaBlue to-zilaMint rounded-full" style="width: 25.7%;"></div>
+                </div>
+                <p class="text-center mt-2 text-sm text-zilaBlue/80">25.7% of presale goal reached</p>
+            </div>
+        </section>
+
+        <!-- Purchase Form Section -->
+        <section id="purchase" class="py-12">
+            <h2 class="font-future text-3xl md:text-4xl font-bold text-center mb-10 text-shadow-glow">BUY ZILA TOKENS</h2>
+            
+            <div class="max-w-2xl mx-auto 3d-card bg-zilaDark/70 rounded-xl p-8 border border-zilaMint/30">
+                <form id="presaleForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="usdAmount" class="block text-zilaBlue font-medium mb-2">USD Amount</label>
+                            <input type="number" id="usdAmount" min="2" max="500" step="0.01" placeholder="Enter USD amount" 
+                                class="w-full p-3 rounded-lg bg-zilaDark/50 border border-zilaBlue/30 focus:border-zilaMint focus:outline-none">
+                        </div>
+                        <div>
+                            <label for="zilaAmount" class="block text-zilaBlue font-medium mb-2">ZILA Tokens</label>
+                            <input type="number" id="zilaAmount" readonly placeholder="Tokens will be calculated" 
+                                class="w-full p-3 rounded-lg bg-zilaDark/50 border border-zilaBlue/30 focus:border-zilaMint focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-zilaBlue font-medium mb-2">Connect Wallet</label>
+                        <div class="flex gap-4">
+                            <button type="button" class="flex-1 p-3 rounded-lg bg-zilaDark/50 border border-zilaBlue/30 hover:border-zilaMint transition-colors flex items-center justify-center gap-2">
+                                <i class="fab fa-metamask text-xl"></i>
+                                <span>MetaMask</span>
+                            </button>
+                            <button type="button" class="flex-1 p-3 rounded-lg bg-zilaDark/50 border border-zilaBlue/30 hover:border-zilaMint transition-colors flex items-center justify-center gap-2">
+                                <i class="fas fa-wallet text-xl"></i>
+                                <span>Trust Wallet</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full p-4 rounded-lg bg-gradient-to-r from-zilaBlue to-zilaMint token-glow font-future text-xl font-bold hover:opacity-90 transition-opacity">
+                        BUY ZILA NOW
+                    </button>
+
+                    <p class="text-center text-sm text-zilaBlue/80">
+                        By purchasing, you agree to our <a href="#" class="text-zilaMint hover:underline">Terms of Service</a> and <a href="#" class="text-zilaMint hover:underline">Privacy Policy</a>
+                    </p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Token Description Section -->
+        <section id="token" class="py-12">
+            <h2 class="font-future text-3xl md:text-4xl font-bold text-center mb-10 text-shadow-glow">ZILA TOKEN OVERVIEW</h2>
+            
+            <div class="max-w-3xl mx-auto 3d-card bg-zilaDark/70 rounded-xl p-8 border border-zilaBlue/20">
+                <p class="text-lg mb-6">
+                    <span class="text-zilaMint font-bold">ZILA Token (ZILA)</span> is a next-generation utility token built on blockchain technology, integrated with advanced AI tools to enhance DeFi experiences. Our mission is to create a seamless, intelligent ecosystem for trading, staking, and yield farming — making decentralized finance accessible and efficient for everyone.
+                </p>
+
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-zilaMint mt-1"></i>
+                        <span><strong>Total Supply:</strong> 1,000,000,000 ZILA (1B)</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-zilaMint mt-1"></i>
+                        <span><strong>Public
