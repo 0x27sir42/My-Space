@@ -120,9 +120,10 @@
         <section class="flex flex-col md:flex-row items-center gap-8 md:gap-16 py-12">
             <!-- 3D Rotating Token -->
             <div class="w-full md:w-1/3 flex justify-center token-3d-container">
-                <div class="w-64 h-64 rounded-full bg-gradient-to-br from-zilaMint to-zilaGold token-glow animate-spin-3d 3d-card flex items-center justify-center p-3">
+                <!-- Tambahkan class 'overflow-hidden' di sini untuk memastikan gambar terpotong sempurna -->
+                <div class="w-64 h-64 rounded-full bg-gradient-to-br from-zilaMint to-zilaGold token-glow animate-spin-3d 3d-card flex items-center justify-center overflow-hidden">
                     <img 
-                        src="godzilaa.png" <!-- GANTI DENGAN GAMBAR TOKEN MU -->
+                        src="godzilaa.png"  <!-- PASTIIN NAMA FILE GAMBARNYA BENAR -->
                         alt="ZILA Token 3D" 
                         class="w-full h-full object-contain rounded-full"
                         loading="lazy"
@@ -132,9 +133,10 @@
 
             <!-- Video Placeholder -->
             <div class="w-full md:w-2/3 3d-card">
+                <!-- Pastikan hanya ada SATU elemen <video> -->
                 <div class="aspect-video bg-zilaDark/50 rounded-xl border-2 border-zilaBlue/30 overflow-hidden relative">
                     <video controls poster="https://via.placeholder.com/1280x720?text=ZILA+INTRO+VIDEO+3D" class="w-full h-full object-cover">
-                        <source src="zila-intro-video.mp4" type="video/mp4">
+                        <source src="Video tanpa judul.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <div class="absolute inset-0 flex items-center justify-center">
@@ -235,15 +237,4 @@
                     </div>
 
                     <!-- Tombol Buy Non-Aktif Sampai Wallet Terhubung -->
-                    <button type="submit" id="buyButton" disabled class="w-full p-4 rounded-lg bg-gradient-to-r from-zilaBlue/50 to-zilaMint/50 font-future text-xl font-bold opacity-70 cursor-not-allowed">
-                        BUY ZILA NOW (Connect Wallet First)
-                    </button>
-
-                    <p class="text-center text-sm text-zilaBlue/80">
-                        By purchasing, you agree to our <a href="#" class="text-zilaMint hover:underline">Terms of Service</a> and <a href="#" class="text-zilaMint hover:underline">Privacy Policy</a>
-                    </p>
-                </form>
-            </div>
-        </section>
-
-        <!-- Token Description
+                    <button type="submit" id="buyButton" disabled class="w-full p-4 rounded-lg bg-gradient-to-r from-zilaBlue/50 to-zilaMint/50 font-future text-xl font-bold opacity-70
