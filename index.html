@@ -24,7 +24,7 @@
                         sans: ['"Inter"', 'sans-serif'],
                     },
                     animation: {
-                        'spin-slow': 'spin 10s linear infinite',
+                        'spin-3d': 'spin3d 15s linear infinite', // Animasi 3D yang lebih realistis
                         'pulse-gentle': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'float': 'float 6s ease-in-out infinite',
                     },
@@ -32,6 +32,10 @@
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
+                        },
+                        spin3d: { // Animasi putar 3D di sumbu Y + sedikit X untuk efek lebih natural
+                            '0%': { transform: 'rotateY(0deg) rotateX(10deg)' },
+                            '100%': { transform: 'rotateY(360deg) rotateX(10deg)' },
                         }
                     }
                 }
@@ -61,6 +65,10 @@
             .metric-bar {
                 transform: translateZ(5px);
                 transition: width 1s ease;
+            }
+            .token-3d-container {
+                transform-style: preserve-3d;
+                perspective: 800px; // Meningkatkan efek kedalaman 3D
             }
         }
     </style>
@@ -97,22 +105,26 @@
 
     <!-- Main Content -->
     <main class="relative z-10 container mx-auto px-4 md:px-8 py-8">
-        <!-- Hero Section (Video + Token) -->
+        <!-- Hero Section (Video + 3D Rotating Token Image) -->
         <section class="flex flex-col md:flex-row items-center gap-8 md:gap-16 py-12">
-            <!-- 3D Token Image -->
-            <div class="w-full md:w-1/3 flex justify-center">
-                <div class="w-64 h-64 rounded-full bg-gradient-to-br from-zilaMint to-zilaGold token-glow animate-spin-slow 3d-card flex items-center justify-center">
-                    <div class="w-56 h-56 rounded-full bg-zilaDark flex items-center justify-center">
-                        <span class="font-future text-4xl md:text-5xl font-black text-shadow-glow">ZILA</span>
-                    </div>
+            <!-- 3D ROTATING TOKEN IMAGE - DISINI GAMBAR MU AKAN DITARUH -->
+            <div class="w-full md:w-1/3 flex justify-center token-3d-container">
+                <div class="w-64 h-64 rounded-full bg-gradient-to-br from-zilaMint to-zilaGold token-glow animate-spin-3d 3d-card flex items-center justify-center p-3">
+                    <!-- GANTI SUMBER GAMBAR DI BAWAH DENGAN FILE GAMBAR TOKEN MU -->
+                    <img 
+                        src="zilahaha.jpg" <!-- Ganti dengan: (misal: "https://contoh.com/zila-token.png") -->
+                        alt="ZILA Token 3D" 
+                        class="w-full h-full object-contain rounded-full"
+                        loading="lazy"
+                    >
                 </div>
             </div>
 
             <!-- Introduction Video Placeholder -->
             <div class="w-full md:w-2/3 3d-card">
                 <div class="aspect-video bg-zilaDark/50 rounded-xl border-2 border-zilaBlue/30 overflow-hidden relative">
-                    <video controls poster="https://via.placeholder.com/1280x720?text=ZILA+INTRO+VIDEO" class="w-full h-full object-cover">
-                        <source src="Video tanpa judul.mp4" type="video/mp4">
+                    <video controls poster="https://via.placeholder.com/1280x720?text=ZILA+INTRO+VIDEO+3D" class="w-full h-full object-cover">
+                        <source src="zila-intro-video.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <div class="absolute inset-0 flex items-center justify-center">
@@ -234,16 +246,4 @@
         <section id="token" class="py-12">
             <h2 class="font-future text-3xl md:text-4xl font-bold text-center mb-10 text-shadow-glow">ZILA TOKEN OVERVIEW</h2>
             
-            <div class="max-w-3xl mx-auto 3d-card bg-zilaDark/70 rounded-xl p-8 border border-zilaBlue/20">
-                <p class="text-lg mb-6">
-                    <span class="text-zilaMint font-bold">ZILA Token (ZILA)</span> is a next-generation utility token built on blockchain technology, integrated with advanced AI tools to enhance DeFi experiences. Our mission is to create a seamless, intelligent ecosystem for trading, staking, and yield farming — making decentralized finance accessible and efficient for everyone.
-                </p>
-
-                <ul class="space-y-3 mb-6">
-                    <li class="flex items-start gap-2">
-                        <i class="fas fa-check-circle text-zilaMint mt-1"></i>
-                        <span><strong>Total Supply:</strong> 1,000,000,000 ZILA (1B)</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i class="fas fa-check-circle text-zilaMint mt-1"></i>
-                        <span><strong>Public
+            <div class="max-w-3xl mx-auto 3d-card bg-zilaDark/70 rounded-xl p-
