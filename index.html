@@ -1,236 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZILA TOKEN - PRESALE</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <!-- Ethers.js (untuk koneksi wallet) -->
-    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js" crossorigin="anonymous"></script>
-    <!-- Custom Config -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        zilaBlue: '#0EA5E9',
-                        zilaMint: '#14B8A6',
-                        zilaGold: '#FBBF24',
-                        zilaDark: '#1E293B',
-                    },
-                    fontFamily: {
-                        future: ['"Orbitron"', 'sans-serif'],
-                        sans: ['"Inter"', 'sans-serif'],
-                    },
-                    animation: {
-                        'spin-3d': 'spin3d 15s linear infinite',
-                        'pulse-gentle': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        },
-                        spin3d: {
-                            '0%': { transform: 'rotateY(0deg) rotateX(10deg)' },
-                            '100%': { transform: 'rotateY(360deg) rotateX(10deg)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .text-shadow-glow {
-                text-shadow: 0 0 15px rgba(14, 165, 233, 0.8);
-            }
-            .3d-card {
-                transform-style: preserve-3d;
-                transition: transform 0.5s ease;
-            }
-            .3d-card:hover {
-                transform: rotateY(15deg) rotateX(10deg) scale(1.02);
-            }
-            .3d-bg {
-                background: radial-gradient(circle at 50% 50%, #0EA5E910, #1E293B 70%);
-                transform-style: preserve-3d;
-                perspective: 1000px;
-            }
-            .token-glow {
-                box-shadow: 0 0 30px rgba(20, 184, 166, 0.7), 0 0 60px rgba(251, 191, 36, 0.5);
-            }
-            .metric-bar {
-                transform: translateZ(5px);
-                transition: width 1s ease;
-            }
-            .token-3d-container {
-                transform-style: preserve-3d;
-                perspective: 800px;
-            }
-            .wallet-connected {
-                border-color: #14B8A6;
-                background-color: rgba(20, 184, 166, 0.1);
-            }
-        }
-    </style>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZILA TOKEN PRESALE</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        zilaDark: '#05050c',
+        zilaPurple: '#6d28d9',
+        zilaBlue: '#0ea5e9',
+        zilaMint: '#14b8a6',
+      }
+    }
+  }
+}
+</script>
 </head>
-<body class="bg-zilaDark text-white min-h-screen overflow-x-hidden 3d-bg">
-    <!-- Floating 3D Geometric Shapes -->
-    <div class="fixed inset-0 pointer-events-none z-0">
-        <div class="absolute top-20 left-10 w-32 h-32 rounded-full bg-zilaBlue/20 blur-xl animate-float" style="animation-delay: 0s;"></div>
-        <div class="absolute bottom-40 right-20 w-48 h-48 rounded-lg bg-zilaMint/20 blur-xl animate-float" style="animation-delay: 1.5s; transform: rotate(45deg);"></div>
-        <div class="absolute top-1/2 left-1/3 w-24 h-24 rounded-full bg-zilaGold/20 blur-xl animate-float" style="animation-delay: 3s;"></div>
-        <div class="absolute top-40 right-1/4 w-36 h-36 rounded-lg bg-zilaBlue/15 blur-xl animate-float" style="animation-delay: 4.5s; transform: rotate(120deg);"></div>
+
+<body class="text-white bg-black overflow-x-hidden">
+
+<!-- ================= THREE DOT MENU ================= -->
+<div class="fixed top-5 right-5 z-50">
+  <button id="menuBtn"
+    class="w-11 h-11 rounded-full bg-black/70 border border-zilaMint flex items-center justify-center text-xl hover:bg-zilaMint hover:text-black transition">
+    <i class="fas fa-ellipsis-vertical"></i>
+  </button>
+
+  <div id="menuDropdown"
+    class="hidden mt-3 w-48 bg-black/80 backdrop-blur-lg border border-zilaMint rounded-xl overflow-hidden shadow-2xl">
+
+    <a href="#home" class="block px-5 py-3 hover:bg-zilaMint hover:text-black transition">Home</a>
+    <a href="#about" class="block px-5 py-3 hover:bg-zilaMint hover:text-black transition">About</a>
+    <a href="#tokenomics" class="block px-5 py-3 hover:bg-zilaMint hover:text-black transition">Tokenomics</a>
+    <a href="#roadmap" class="block px-5 py-3 hover:bg-zilaMint hover:text-black transition">Roadmap</a>
+    <a href="whitepaper.pdf" target="_blank"
+       class="block px-5 py-3 hover:bg-zilaMint hover:text-black transition">
+       Whitepaper
+    </a>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section id="home"
+class="min-h-screen bg-cover bg-center flex items-center"
+style="background-image:url('bg-token.jpg')">
+
+<div class="container mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+
+  <!-- TOKEN -->
+  <div class="flex justify-center">
+    <div class="w-64 h-64 rounded-full bg-gradient-to-br from-zilaMint to-zilaBlue shadow-2xl flex items-center justify-center">
+      <img src="godzilaa.png" alt="ZILA Token" class="w-52 h-52 object-contain">
     </div>
+  </div>
 
-    <!-- Header -->
-    <header class="relative z-10 py-6 px-4 md:px-8 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <div class="w-10 h-10 rounded-full bg-zilaMint token-glow flex items-center justify-center">
-                <span class="font-future text-xl font-bold">Z</span>
-            </div>
-            <h1 class="font-future text-2xl md:text-3xl font-bold text-shadow-glow">ZILA TOKEN</h1>
-        </div>
-        <!-- Wallet Status -->
-        <div id="walletStatus" class="hidden md:flex items-center gap-3 px-4 py-2 rounded-lg border border-zilaBlue/30">
-            <i class="fas fa-wallet text-zilaMint"></i>
-            <span id="walletAddress" class="font-medium">Not Connected</span>
-        </div>
-        <nav class="hidden md:flex gap-6 ml-6">
-            <a href="#details" class="font-medium hover:text-zilaMint transition-colors">Details</a>
-            <a href="#purchase" class="font-medium hover:text-zilaMint transition-colors">Buy</a>
-            <a href="#token" class="font-medium hover:text-zilaMint transition-colors">Token</a>
-            <a href="#contact" class="font-medium hover:text-zilaMint transition-colors">Support</a>
-        </nav>
-        <button class="md:hidden text-2xl">
-            <i class="fas fa-bars"></i>
-        </button>
-    </header>
+  <!-- VIDEO (SATU) -->
+  <div class="bg-black/60 rounded-xl overflow-hidden border border-zilaBlue">
+    <video controls class="w-full h-full">
+      <source src="video.mp4" type="video/mp4">
+    </video>
+  </div>
 
-    <!-- Main Content -->
-    <main class="relative z-10 container mx-auto px-4 md:px-8 py-8">
-        <!-- Hero Section -->
-        <section class="flex flex-col md:flex-row items-center gap-8 md:gap-16 py-12">
-            <!-- 3D Rotating Token -->
-            <div class="w-full md:w-1/3 flex justify-center token-3d-container">
-                <!-- Tambahkan class 'overflow-hidden' di sini untuk memastikan gambar terpotong sempurna -->
-                <div class="w-64 h-64 rounded-full bg-gradient-to-br from-zilaMint to-zilaGold token-glow animate-spin-3d 3d-card flex items-center justify-center overflow-hidden">
-                    <img 
-                        src="godzilaa.png"  <!-- PASTIIN NAMA FILE GAMBARNYA BENAR --
-                    >
-                </div>
-            </div>
+</div>
+</section>
 
-            <!-- Video Placeholder -->
-            <div class="w-full md:w-2/3 3d-card">
-                <!-- Pastikan hanya ada SATU elemen <video> -->
-                <div class="aspect-video bg-zilaDark/50 rounded-xl border-2 border-zilaBlue/30 overflow-hidden relative">
-                    <video controls poster="Video tanpa judul.mp4" class="w-full h-full object-cover">
-                        <source src="Video tanpa judul.mp4" type="video/mp4">
-                    </video>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <button class="w-16 h-16 rounded-full bg-zilaMint/80 token-glow flex items-center justify-center hover:bg-zilaMint transition-colors">
-                            <i class="fas fa-play text-white text-2xl ml-1"></i>
-                        </button>
-                    </div>
-                </div>
-                <p class="mt-4 text-center text-zilaBlue/80 font-medium">Watch our 3D AI-powered introduction to ZILA Token</p>
-            </div>
-        </section>
+<!-- ================= ABOUT ================= -->
+<section id="about"
+class="py-20 bg-gradient-to-b from-black via-[#1a082f] to-black text-center px-6">
+<h2 class="text-4xl font-bold mb-6">ABOUT ZILA</h2>
+<p class="max-w-3xl mx-auto text-gray-300">
+ZILA is a next-generation crypto ecosystem focused on DeFi, staking,
+NFT utility, and AI-powered blockchain solutions.
+</p>
+</section>
 
-        <!-- Presale Details -->
-        <section id="details" class="py-12">
-            <h2 class="font-future text-3xl md:text-4xl font-bold text-center mb-10 text-shadow-glow">PRESALE DETAILS</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="3d-card bg-zilaDark/70 rounded-xl p-6 border border-zilaBlue/20 hover:border-zilaMint/50 transition-colors">
-                    <div class="text-zilaGold text-4xl mb-3"><i class="fas fa-minus-circle"></i></div>
-                    <h3 class="font-future text-xl font-bold mb-2">Minimum Purchase</h3>
-                    <p class="text-2xl font-bold text-zilaMint">$2 <span class="text-sm text-white">≈ 200 ZILA</span></p>
-                </div>
-                <div class="3d-card bg-zilaDark/70 rounded-xl p-6 border border-zilaBlue/20 hover:border-zilaMint/50 transition-colors">
-                    <div class="text-zilaGold text-4xl mb-3"><i class="fas fa-plus-circle"></i></div>
-                    <h3 class="font-future text-xl font-bold mb-2">Maximum Purchase</h3>
-                    <p class="text-2xl font-bold text-zilaMint">$500 <span class="text-sm text-white">≈ 50,000 ZILA</span></p>
-                </div>
-                <div class="3d-card bg-zilaDark/70 rounded-xl p-6 border border-zilaBlue/20 hover:border-zilaMint/50 transition-colors">
-                    <div class="text-zilaGold text-4xl mb-3"><i class="fas fa-exchange-alt"></i></div>
-                    <h3 class="font-future text-xl font-bold mb-2">Exchange Rate</h3>
-                    <p class="text-2xl font-bold text-zilaMint">1 USD = 100 ZILA</p>
-                </div>
-                <div class="3d-card bg-zilaDark/70 rounded-xl p-6 border border-zilaBlue/20 hover:border-zilaMint/50 transition-colors">
-                    <div class="text-zilaGold text-4xl mb-3"><i class="fas fa-pie-chart"></i></div>
-                    <h3 class="font-future text-xl font-bold mb-2">Public Allocation</h3>
-                    <p class="text-2xl font-bold text-zilaMint">5% <span class="text-sm text-white">≈ 50M ZILA</span></p>
-                </div>
-            </div>
+<!-- ================= TOKENOMICS ================= -->
+<section id="tokenomics"
+class="py-20 bg-gradient-to-b from-black via-[#0b1228] to-black px-6">
+<h2 class="text-4xl font-bold text-center mb-10">TOKENOMICS</h2>
 
-            <!-- Real-Time Metrics -->
-            <div class="mt-12 3d-card bg-zilaDark/70 rounded-xl p-6 border border-zilaBlue/20">
-                <h3 class="font-future text-2xl font-bold mb-6 text-center">REAL-TIME PRESALE PROGRESS</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div class="text-center">
-                        <p class="text-zilaBlue font-medium">Total Raised</p>
-                        <p class="text-3xl font-bold text-zilaMint" id="totalRaised">$128,450</p>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-zilaBlue font-medium">Tokens Sold</p>
-                        <p class="text-3xl font-bold text-zilaMint" id="tokensSold">12,845,000 ZILA</p>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-zilaBlue font-medium">Participants</p>
-                        <p class="text-3xl font-bold text-zilaMint" id="participants">1,842</p>
-                    </div>
-                </div>
+<div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+  <div class="bg-black/60 p-6 rounded-xl border border-zilaPurple">Public Sale 5%</div>
+  <div class="bg-black/60 p-6 rounded-xl border border-zilaPurple">Liquidity 20%</div>
+  <div class="bg-black/60 p-6 rounded-xl border border-zilaPurple">Team 15%</div>
+  <div class="bg-black/60 p-6 rounded-xl border border-zilaPurple">Ecosystem 60%</div>
+</div>
+</section>
 
-                <div class="h-6 bg-zilaDark/50 rounded-full overflow-hidden border border-zilaBlue/30">
-                    <div class="metric-bar h-full bg-gradient-to-r from-zilaBlue to-zilaMint rounded-full" style="width: 25.7%;"></div>
-                </div>
-                <p class="text-center mt-2 text-sm text-zilaBlue/80">25.7% of presale goal reached</p>
-            </div>
-        </section>
+<!-- ================= ROADMAP ================= -->
+<section id="roadmap"
+class="py-20 bg-gradient-to-b from-black via-[#022c22] to-black px-6 text-center">
+<h2 class="text-4xl font-bold mb-10">ROADMAP</h2>
 
-        <!-- Purchase Form -->
-        <section id="purchase" class="py-12">
-            <h2 class="font-future text-3xl md:text-4xl font-bold text-center mb-10 text-shadow-glow">BUY ZILA TOKENS</h2>
-            
-            <div class="max-w-2xl mx-auto 3d-card bg-zilaDark/70 rounded-xl p-8 border border-zilaMint/30">
-                <form id="presaleForm" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="usdAmount" class="block text-zilaBlue font-medium mb-2">USD Amount</label>
-                            <input type="number" id="usdAmount" min="2" max="500" step="0.01" placeholder="Enter USD amount" 
-                                class="w-full p-3 rounded-lg bg-zilaDark/50 border border-zilaBlue/30 focus:border-zilaMint focus:outline-none">
-                        </div>
-                        <div>
-                            <label for="zilaAmount" class="block text-zilaBlue font-medium mb-2">ZILA Tokens</label>
-                            <input type="number" id="zilaAmount" readonly placeholder="Tokens will be calculated" 
-                                class="w-full p-3 rounded-lg bg-zilaDark/50 border border-zilaBlue/30 focus:border-zilaMint focus:outline-none">
-                        </div>
-                    </div>
+<ul class="space-y-4 max-w-xl mx-auto text-gray-300">
+  <li>✅ Q1 – Presale & Community Build</li>
+  <li>🚀 Q2 – DEX Listing</li>
+  <li>🧠 Q3 – AI Integration</li>
+  <li>🌍 Q4 – Ecosystem Expansion</li>
+</ul>
+</section>
 
-                    <!-- Connect Wallet Buttons (Berfungsi) -->
-                    <div>
-                        <label class="block text-zilaBlue font-medium mb-2">Connect Wallet</label>
-                        <div class="flex gap-4">
-                            <button type="button" id="connectMetaMask" class="flex-1 p-3 rounded-lg bg-zilaDark/50 border border-zilaBlue/30 hover:border-zilaMint transition-colors flex items-center justify-center gap-2">
-                                <i class="fab fa-metamask text-xl"></i>
-                                <span>MetaMask</span>
-                            </button>
-                            <button type="button" id="connectTrustWallet" class="flex-1 p-3 rounded-lg bg-zilaDark/50 border border-zilaBlue/30 hover:border-zilaMint transition-colors flex items-center justify-center gap-2">
-                                <i class="fas fa-wallet text-xl"></i>
-                                <span>Trust Wallet</span>
-                            </button>
-                        </div>
-                    </div>
+<!-- ================= BUY ================= -->
+<section id="purchase"
+class="py-20 bg-gradient-to-b from-black via-[#020617] to-black px-6">
+<h2 class="text-4xl font-bold text-center mb-10">BUY ZILA</h2>
 
-                    <!-- Tombol Buy Non-Aktif Sampai Wallet Terhubung -->
-                    <button type="submit" id="buyButton" disabled class="w-full p-4 rounded-lg bg-gradient-to-r from-zilaBlue/50 to-zilaMint/50 font-future text-xl font-bold opacity-70
+<div class="max-w-xl mx-auto bg-black/60 p-8 rounded-xl border border-zilaMint">
+
+<label>USD</label>
+<input id="usd" type="number"
+class="w-full p-3 mb-4 rounded bg-black border border-zilaMint">
+
+<label>ZILA</label>
+<input id="zila" readonly
+class="w-full p-3 mb-6 rounded bg-black border border-zilaMint">
+
+<button class="w-full py-4 bg-gradient-to-r from-zilaBlue to-zilaMint font-bold rounded-xl">
+BUY NOW
+</button>
+
+</div>
+</section>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+const usd = document.getElementById("usd");
+const zila = document.getElementById("zila");
+usd.addEventListener("input", () => zila.value = usd.value * 2000);
+
+const menuBtn = document.getElementById("menuBtn");
+const menuDropdown = document.getElementById("menuDropdown");
+
+menuBtn.addEventListener("click", () => {
+  menuDropdown.classList.toggle("hidden");
+});
+
+document.addEventListener("click", (e) => {
+  if (!menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+    menuDropdown.classList.add("hidden");
+  }
+});
+</script>
+
+</body>
+</html>
