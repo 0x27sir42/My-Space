@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZILA Ecosystem</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
+
+/* ===== REAL 3D HD MOVING BACKGROUND ===== */
+body{
+  color:#fff;
+  min-height:100vh;
+  overflow-x:hidden;
+  background:#02060c;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:-50%;
+  background:
+    conic-gradient(
+      from 0deg,
+      #00ffd544,
+      #4b6cff66,
+      #00ffd544,
+      #4b6cff66
+    );
+  animation:spin3d 90s linear infinite;
+  z-index:-2;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 30%, #00ffd533, transparent 45%),
+    radial-gradient(circle at 80% 70%, #4b6cff44, transparent 45%);
+  z-index:-1;
+}
+
+@keyframes spin3d{
+  from{transform:rotate(0deg) scale(1.3)}
+  to{transform:rotate(360deg) scale(1.3)}
+}
+
+/* ===== NAV ===== */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 28px;
+  backdrop-filter:blur(16px);
+}
+nav a{
+  margin:0 10px;
+  cursor:pointer;
+  color:#aaa;
+  text-decoration:none;
+  font-size:14px;
+}
+nav a:hover{color:#00ffd5}
+.wallet{
+  background:#00ffd5;
+  color:#000;
+  border:none;
+  padding:7px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:13px;
+}
+
+/* ===== SECTIONS ===== */
+section{
+  display:none;
+  max-width:1100px;
+  margin:80px auto;
+  padding:30px;
+}
+section.active{display:block}
+
+.card{
+  background:rgba(255,255,255,0.07);
+  padding:28px;
+  border-radius:22px;
+  margin-bottom:40px;
+  box-shadow:0 0 50px rgba(0,255,213,0.12);
+}
+
+input,button{
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  border-radius:12px;
+  border:none;
+}
+button{
+  background:#00ffd5;
+  color:#000;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:22px;
+}
+
+.circle{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+/* ===== ECOSYSTEM SLIDER ===== */
+.slider{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  scroll-behavior:smooth;
+}
+.slider img{
+  width:260px;
+  height:160px;
+  border-radius:18px;
+  flex-shrink:0;
+  transition:.4s;
+}
+.slider img:hover{
+  transform:rotateY(15deg) scale(1.05);
+}
+
+/* ===== FOOTER ===== */
+.footer{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  text-align:center;
+  padding:10px;
+  font-size:12px;
+  color:#777;
+  background:rgba(0,0,0,.55);
+}
+
+  /* ===== BLACK HOLE GALAXY HD BACKGROUND ===== */
+#blackhole-bg{
+  position:fixed;
+  inset:0;
+  z-index:-5;
+  overflow:hidden;
+  background:radial-gradient(circle at center, #02010a 0%, #000 60%);
+}
+
+/* STARS */
+.stars{
+  position:absolute;
+  width:200%;
+  height:200%;
+  background:
+    radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 30% 80%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 40%, #fff, transparent),
+    radial-gradient(1px 1px at 90% 10%, #fff, transparent);
+  animation:starsMove 180s linear infinite;
+  opacity:.5;
+}
+
+@keyframes starsMove{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(-400px,-400px,0)}
+}
+
+/* ASTEROIDS */
+.asteroids{
+  position:absolute;
+  inset:-50%;
+  background:
+    radial-gradient(6px 6px at 20% 40%, #777, transparent),
+    radial-gradient(8px 8px at 60% 70%, #555, transparent),
+    radial-gradient(5px 5px at 80% 20%, #666, transparent);
+  animation:asteroidFall 60s linear infinite;
+  opacity:.35;
+}
+
+@keyframes asteroidFall{
+  from{transform:rotate(0deg) translateX(0)}
+  to{transform:rotate(360deg) translateX(-600px)}
+}
+
+/* BLACK HOLE CORE */
+.blackhole{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:520px;
+  height:520px;
+  margin:-260px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at center,
+      #000 0%,
+      #000 25%,
+      #3a00ff 40%,
+      #00ffd5 55%,
+      transparent 70%);
+  box-shadow:
+    0 0 120px #3a00ff88,
+    0 0 260px #00ffd544;
+  animation:blackholeSpin 40s linear infinite;
+  filter:blur(0.2px);
+}
+
+@keyframes blackholeSpin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+
+/* ===== FORCE DEEP SPACE BLACK ===== */
+body{
+  background:#000 !important;
+}
+
+body::before,
+body::after{
+  display:none !important;
+}
+
+/* ===== DEEP STAR FIELD ===== */
+.stars{
+  background:
+    radial-gradient(1px 1px at 5% 10%, #fff, transparent),
+    radial-gradient(1px 1px at 15% 80%, #fff, transparent),
+    radial-gradient(1px 1px at 35% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 55% 60%, #fff, transparent),
+    radial-gradient(1px 1px at 75% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 95% 90%, #fff, transparent);
+  background-size:400px 400px;
+  animation:starsMove 240s linear infinite;
+  opacity:.9;
+}
+
+/* ===== ASTEROID SWIRL ===== */
+.asteroids{
+  background:
+    radial-gradient(5px 5px at 30% 40%, #aaa, transparent),
+    radial-gradient(6px 6px at 60% 70%, #888, transparent),
+    radial-gradient(4px 4px at 80% 20%, #999, transparent);
+  animation:asteroidFall 45s linear infinite;
+  filter:blur(0.3px);
+}
+
+/* ===== REAL BLACK HOLE ===== */
+.blackhole{
+  background:
+    radial-gradient(circle at center,
+      #000 0%,
+      #000 35%,
+      #ffffff 42%,
+      #ffffff 48%,
+      rgba(255,255,255,0.3) 55%,
+      transparent 70%);
+  box-shadow:
+    0 0 80px #ffffffaa,
+    0 0 200px #ffffff55;
+  animation:blackholeSpin 25s linear infinite;
+}
+  
+</style>
+</head>
+
+<body>
+
+  <!-- ===== BLACK HOLE 3D GALAXY BACKGROUND ===== -->
+<div id="blackhole-bg">
+  <div class="stars"></div>
+  <div class="asteroids"></div>
+  <div class="blackhole"></div>
+</div>
+
+<nav>
+  <strong>ZILA</strong>
+  <div>
+    <a onclick="show('home')">Home</a>
+    <a onclick="show('presale')">Presale</a>
+    <a onclick="show('staking')">Staking</a>
+    <a onclick="show('roadmap')">Roadmap</a>
+    <a onclick="show('tokenomics')">Tokenomics</a>
+    <a onclick="show('whitepaper')">Whitepaper</a>
+  </div>
+  <button id="connect" class="wallet">Connect</button>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="active card">
+<h1>ZILA Ecosystem</h1>
+<p>Decentralized AI Infrastructure for the Next Generation of DeFi</p>
+
+<h3 style="margin-top:25px">Vision</h3>
+<p>Privacy-first AI blockchain powering secure DeFi automation.</p>
+
+<h3 style="margin-top:30px">Ecosystem</h3>
+<div class="slider">
+  <a href="#"><img src="images/eco1.png"></a>
+  <a href="#"><img src="images/eco2.png"></a>
+  <a href="#"><img src="images/eco3.png"></a>
+  <a href="#"><img src="images/eco4.png"></a>
+</div>
+</section>
+
+<!-- PRESALE -->
+<section id="presale" class="card">
+<h2>Presale (Private Beta)</h2>
+
+<img src="images/zila-presale.png" style="width:100%;max-width:900px;border-radius:20px;margin:20px auto;display:block">
+
+<p>
+🎯 Raise: <b>5,000 POL</b><br>
+💱 Rate: <b>1 POL = 1,650 ZILA</b><br>
+🔓 TGE: <b>10%</b> | ⏳ Vesting: <b>12 Months</b>
+</p>
+
+<canvas id="priceChart" height="120"></canvas>
+
+<input id="buyAmount" placeholder="Min 20 POL">
+<button onclick="buyPresale()">Buy ZILA</button>
+<div id="presaleHistory"></div>
+</section>
+
+<!-- STAKING -->
+<section id="staking" class="card">
+<h2>Staking</h2>
+<input id="stakeAmount" placeholder="Min 10,000 ZILA">
+<button onclick="stake()">Stake</button>
+<button onclick="unstake()">Unstake</button>
+<div id="stakeHistory"></div>
+</section>
+
+<!-- TOKENOMICS -->
+<section id="tokenomics" class="card">
+<h2>Tokenomics</h2>
+<canvas id="tokenChart"></canvas>
+
+<h3 style="margin-top:40px">Team</h3>
+<div class="grid">
+<img class="circle" src="images/team1.png">
+<img class="circle" src="images/team2.png">
+<img class="circle" src="images/team3.png">
+<img class="circle" src="images/team4.png">
+<img class="circle" src="images/team5.png">
+<img class="circle" src="images/team6.png">
+<img class="circle" src="images/team7.png">
+<img class="circle" src="images/team8.png">
+<img class="circle" src="images/team9.png">
+</div>
+</section>
+
+<div class="footer">© 2026 ZILA. All Rights Reserved.</div>
+
+<script>
+function show(id){
+ document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+}
+
+/* WEB3 */
+let web3,account;
+const PRESALE_WALLET="0xYOUR_PRESALE_WALLET";
+let price=1;
+
+/* CONNECT */
+connect.onclick=async()=>{
+ web3=new Web3(window.ethereum);
+ account=(await ethereum.request({method:"eth_requestAccounts"}))[0];
+ connect.innerText=account.slice(0,6)+"..."+account.slice(-4);
+};
+
+/* REAL PRESALE */
+async function buyPresale(){
+ const amt=document.getElementById("buyAmount").value;
+ if(!amt||amt<20)return alert("Min 20 POL");
+ const tx=await ethereum.request({
+  method:"eth_sendTransaction",
+  params:[{
+    from:account,
+    to:PRESALE_WALLET,
+    value:Web3.utils.toHex(Web3.utils.toWei(amt,"ether"))
+  }]
+ );
+ price+=0.02;
+ priceChart.data.labels.push(priceChart.data.labels.length);
+ priceChart.data.datasets[0].data.push(price);
+ priceChart.update();
+ save("BUY",`<a href="https://polygonscan.com/tx/${tx}" target="_blank">${tx.slice(0,10)}...</a>`);
+}
+
+/* HISTORY */
+function save(t,h){
+ const a=JSON.parse(localStorage.getItem("zila")||"[]");
+ a.unshift({t,h});
+ localStorage.setItem("zila",JSON.stringify(a));
+ stakeHistory.innerHTML=presaleHistory.innerHTML=a.map(x=>`<div>${x.t}: ${x.h}</div>`).join("");
+}
+
+/* CHART */
+const priceChart=new Chart(priceChart,{
+ type:"line",
+ data:{labels:[0],datasets:[{data:[price],borderColor:"#00ffd5"}]},
+ options:{plugins:{legend:{display:false}}}
+});
+new Chart(tokenChart,{
+ type:"pie",
+ data:{labels:["Staking","Presale","Team","Ecosystem"],datasets:[{data:[40,20,10,30]}]}
+});
+</script>
+
+</body>
+</html>
