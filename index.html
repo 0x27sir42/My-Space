@@ -2,151 +2,96 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>ZILA Ecosystem</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZILA TOKEN PRESALE</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        zilaDark: '#05050c',
-        zilaPurple: '#6d28d9',
-        zilaBlue: '#0ea5e9',
-        zilaMint: '#14b8a6',
-      }
-    }
-  }
-}
-</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
+body{color:#fff;min-height:100vh;background:#02060c;overflow-x:hidden}
+nav{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;backdrop-filter:blur(16px)}
+.wallet{padding:6px 14px;border-radius:20px;background:linear-gradient(135deg,#00ffd5,#4b6cff);box-shadow:0 12px 35px rgba(0,255,213,.6)}
+.menu-btn{font-size:26px;cursor:pointer;color:#00ffd5}
+.menu{position:absolute;top:60px;right:20px;background:#0a0f19;border-radius:14px;width:170px;display:none}
+.menu a{display:block;padding:12px 18px;color:#ddd;text-decoration:none}
+.menu a:hover{background:#00ffd5;color:#000}
+section{display:none;max-width:1100px;margin:80px auto;padding:30px}
+section.active{display:block}
+.card{background:rgba(255,255,255,.07);padding:28px;border-radius:22px;margin-bottom:40px}
+textarea,input{width:100%;padding:10px;border-radius:10px;margin-top:10px}
+button{margin-top:10px;padding:10px 16px;border-radius:12px;border:none;cursor:pointer}
+.footer{position:fixed;bottom:0;width:100%;text-align:center;font-size:12px;background:#000}
+</style>
 </head>
 
-<body class="text-white bg-black overflow-x-hidden">
+<body>
 
-<!-- ================= THREE DOT MENU ================= -->
-<div class="fixed top-5 right-5 z-50">
-  <button id="menuBtn"
-    class="w-11 h-11 rounded-full bg-black/70 border border-zilaMint flex items-center justify-center text-xl hover:bg-zilaMint hover:text-black transition">
-    <i class="fas fa-ellipsis-vertical"></i>
-  </button>
-
-  <div id="menuDropdown"
-    class="hidden mt-3 w-48 bg-black/80 backdrop-blur-lg border border-zilaMint rounded-xl overflow-hidden shadow-2xl">
-
-    <a href="#home" class="block px-5 py-3 hover:bg-zilaMint hover:text-black transition">Home</a>
-    <a href="#about" class="block px-5 py-3 hover:bg-zilaMint hover:text-black transition">About</a>
-    <a href="#tokenomics" class="block px-5 py-3 hover:bg-zilaMint hover:text-black transition">Tokenomics</a>
-    <a href="#roadmap" class="block px-5 py-3 hover:bg-zilaMint hover:text-black transition">Roadmap</a>
-    <a href="whitepaper.pdf" target="_blank"
-       class="block px-5 py-3 hover:bg-zilaMint hover:text-black transition">
-       Whitepaper
-    </a>
+<nav>
+  <strong>ZILA</strong>
+  <div class="menu-btn" onclick="toggleMenu()">⋮</div>
+  <div class="menu" id="menu">
+    <a onclick="navGo('home')">Home</a>
+    <a onclick="navGo('presale')">Presale</a>
+    <a onclick="navGo('staking')">Staking</a>
+    <a onclick="navGo('team')">Team</a>
   </div>
-</div>
+  <button id="connect" class="wallet">Connect</button>
+</nav>
 
-<!-- ================= HERO ================= -->
-<section id="home"
-class="min-h-screen bg-cover bg-center flex items-center"
-style="background-image:url('bg-token.jpg')">
-
-<div class="container mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
-
-  <!-- TOKEN -->
-  <div class="flex justify-center">
-    <div class="w-64 h-64 rounded-full bg-gradient-to-br from-zilaMint to-zilaBlue shadow-2xl flex items-center justify-center">
-      <img src="godzilaa.png" alt="ZILA Token" class="w-52 h-52 object-contain">
-    </div>
-  </div>
-
-  <!-- VIDEO (SATU) -->
-  <div class="bg-black/60 rounded-xl overflow-hidden border border-zilaBlue">
-    <video controls class="w-full h-full">
-      <source src="video.mp4" type="video/mp4">
-    </video>
-  </div>
-
-</div>
+<section id="home" class="active card">
+<h1>ZILA Ecosystem</h1>
+<p>Decentralized AI Infrastructure</p>
 </section>
 
-<!-- ================= ABOUT ================= -->
-<section id="about"
-class="py-20 bg-gradient-to-b from-black via-[#1a082f] to-black text-center px-6">
-<h2 class="text-4xl font-bold mb-6">ABOUT ZILA</h2>
-<p class="max-w-3xl mx-auto text-gray-300">
-ZILA is a next-generation crypto ecosystem focused on DeFi, staking,
-NFT utility, and AI-powered blockchain solutions.
-</p>
+<section id="presale" class="card">
+<h2>Presale</h2>
+<input id="buyAmount" placeholder="Min 20 POL">
+<button onclick="buyPresale()">Buy ZILA</button>
+
+<h3>Presale History</h3>
+<ul id="presaleHistory"></ul>
+
+<h3>Contact Support</h3>
+<textarea id="presaleSupportMsg"></textarea>
+<button onclick="sendSupport('presale')">Send</button>
+<div id="presaleReply"></div>
 </section>
 
-<!-- ================= TOKENOMICS ================= -->
-<section id="tokenomics"
-class="py-20 bg-gradient-to-b from-black via-[#0b1228] to-black px-6">
-<h2 class="text-4xl font-bold text-center mb-10">TOKENOMICS</h2>
+<section id="staking" class="card">
+<h2>Staking</h2>
+<input id="stakeAmount" placeholder="Min 10,000 ZILA">
+<button onclick="stakeZILA(document.getElementById('stakeAmount').value)">Stake</button>
+<button onclick="unstakeZILA(document.getElementById('stakeAmount').value)">Unstake</button>
 
-<div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-  <div class="bg-black/60 p-6 rounded-xl border border-zilaPurple">Public Sale 5%</div>
-  <div class="bg-black/60 p-6 rounded-xl border border-zilaPurple">Liquidity 20%</div>
-  <div class="bg-black/60 p-6 rounded-xl border border-zilaPurple">Team 15%</div>
-  <div class="bg-black/60 p-6 rounded-xl border border-zilaPurple">Ecosystem 60%</div>
-</div>
+<h3>Staking History</h3>
+<ul id="stakingHistory"></ul>
+
+<h3>Contact Support</h3>
+<textarea id="stakingSupportMsg"></textarea>
+<button onclick="sendSupport('staking')">Send</button>
+<div id="stakingReply"></div>
 </section>
 
-<!-- ================= ROADMAP ================= -->
-<section id="roadmap"
-class="py-20 bg-gradient-to-b from-black via-[#022c22] to-black px-6 text-center">
-<h2 class="text-4xl font-bold mb-10">ROADMAP</h2>
-
-<ul class="space-y-4 max-w-xl mx-auto text-gray-300">
-  <li>✅ Q1 – Presale & Community Build</li>
-  <li>🚀 Q2 – DEX Listing</li>
-  <li>🧠 Q3 – AI Integration</li>
-  <li>🌍 Q4 – Ecosystem Expansion</li>
-</ul>
+<section id="team" class="card">
+<h2>Team</h2>
+<p>ZILA Core Team</p>
 </section>
 
-<!-- ================= BUY ================= -->
-<section id="purchase"
-class="py-20 bg-gradient-to-b from-black via-[#020617] to-black px-6">
-<h2 class="text-4xl font-bold text-center mb-10">BUY ZILA</h2>
-
-<div class="max-w-xl mx-auto bg-black/60 p-8 rounded-xl border border-zilaMint">
-
-<label>USD</label>
-<input id="usd" type="number"
-class="w-full p-3 mb-4 rounded bg-black border border-zilaMint">
-
-<label>ZILA</label>
-<input id="zila" readonly
-class="w-full p-3 mb-6 rounded bg-black border border-zilaMint">
-
-<button class="w-full py-4 bg-gradient-to-r from-zilaBlue to-zilaMint font-bold rounded-xl">
-BUY NOW
-</button>
-
-</div>
+<section id="admin-panel" class="card" style="display:none">
+<h2>Admin Support Panel</h2>
+<div id="adminMessages"></div>
 </section>
 
-<!-- ================= SCRIPT ================= -->
+<div class="footer">© 2026 ZILA</div>
+
+<script src="app.js"></script>
+
 <script>
-const usd = document.getElementById("usd");
-const zila = document.getElementById("zila");
-usd.addEventListener("input", () => zila.value = usd.value * 2000);
-
-const menuBtn = document.getElementById("menuBtn");
-const menuDropdown = document.getElementById("menuDropdown");
-
-menuBtn.addEventListener("click", () => {
-  menuDropdown.classList.toggle("hidden");
-});
-
-document.addEventListener("click", (e) => {
-  if (!menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
-    menuDropdown.classList.add("hidden");
-  }
-});
+function toggleMenu(){const m=document.getElementById("menu");m.style.display=m.style.display==="block"?"none":"block"}
+function navGo(id){toggleMenu();document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active")}
 </script>
 
 </body>
